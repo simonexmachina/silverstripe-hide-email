@@ -3,8 +3,8 @@
  * This module provides Javascript obfuscation of email addresses. It also 
  * degrades gracefully to an URL-based solution when Javascript is not enabled.
  * 
- * This module used code from the (unreleased) Hide Mailto module as a starting point 
- * (http://www.silverstripe.org/hide-mail-to-module/).
+ * This module was initially based on code from the (unreleased) Hide Mailto 
+ * module as a starting point (http://www.silverstripe.org/hide-mail-to-module/).
  *
  * Full documentation for this module has not yet been completed.
  * 
@@ -92,6 +92,7 @@ class HideEmail_Controller extends ContentController {
 class HideEmail {
 
 	public static $jsAdded = false;
+
 	static function obfuscateEmails( $content ) {
 		$search = array(
 				'/<a (.*)href=([\'"])\s*mailto:\s*(\S+)@(\S+)([\'"])(.*)>(.*)<\/a>/siUe', // (\?[^\'"]*subject=([^&]+))?
@@ -134,11 +135,15 @@ EOB;
 
 }
 
-class HideEmail_PageDecorator extends SiteTreeDecorator {
+class HideEmail_SiteTreeDecorator extends SiteTreeDecorator {
 
 	function Content() {
 		$content = $this->owner->getField('Content');
 		return HideEmail::obfuscateEmails($content);
+	}
+
+	function onAfterPublish( $original ) {
+		HideEmail::$jsAdded = false;
 	}
 
 }

@@ -16,10 +16,9 @@ HideEmail_Controller::set_allowed_domains('*');
 Object::add_extension('Member', 'HideEmail_Role');
 
 /**
- * You can comment out/remove this line if you don't want to hide emails in 
- * Page content.
+ * You can comment out/remove this line if you don't want to hide emails in content.
  */
-Object::add_extension('Page', 'HideEmail_PageDecorator');
+Object::add_extension('SiteTree', 'HideEmail_SiteTreeDecorator');
 
 /**
  * Sets up the route to handle the mailto links
