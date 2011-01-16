@@ -18,6 +18,7 @@
  * see how mailto/ maps to this class.
  */
 class HideEmail_Controller extends ContentController {
+
 	/**
 	 * The list of allowed domains to create a mailto: link to. By default, allow
 	 * all domains.
@@ -56,7 +57,8 @@ class HideEmail_Controller extends ContentController {
 		}
 
 		// Make sure the domain is in the allowed domains
-		if((is_string(self::$allowed_domains) && self::$allowed_domains == '*') || in_array($domain, self::$allowed_domains)) {
+		if( (is_string(self::$allowed_domains) && self::$allowed_domains == '*')
+				|| in_array($domain, self::$allowed_domains) ) {
 			if( !$subject ) {
 				$subject = $request->requestVar('subject');
 			}
@@ -134,7 +136,7 @@ EOB;
 
 class HideEmail_SiteTreeDecorator extends SiteTreeDecorator {
 
-	function Content() {
+	function getContent() {
 		$content = $this->owner->getField('Content');
 		return HideEmail::obfuscateEmails($content);
 	}

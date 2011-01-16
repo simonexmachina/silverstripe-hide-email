@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Specify the domains you're allowed to send to. This can be either the
  * string '*' (for creating a link for any domain), or an array of domains to
